@@ -1,0 +1,75 @@
+<!--
+ * @Description: <UC-005> PC Task 3: Program (Jobs) calendar | Once user clicks on the program item, sf record should be viewed in a popup window
+                 <UC-023> PC Task 4: Open the calendar shift in a new tab | User cab see the shift detail on pop-up window and provide a link/button to open this record in a new tab
+ * @ComponentName: vmEventModelComponent
+ * @Developer: Waruna Wickramasinghe <UC-005>, Waruna Wickramasinghe <UC-023>
+ * @Date: 02/02/2024
+ ***********************************************************************************************************************************************************
+  Version                         Date                           Developer                                      Description
+  v01                             02/02/2024                     Waruna Wickramasinghe                          <UC-005> Initial Version
+  v02                             15/02/2024                     Waruna Wickramasinghe                          <UC-023> link to open record in a new tab
+ ***********************************************************************************************************************************************************
+-->
+<template>
+    <!-- Modal Header-->
+    <div>
+        <lightning-modal-header>
+            <div style="font-weight: 550; font-size: 15px;">{content.title}</div>
+        </lightning-modal-header>
+        <!-- Modal Body: Contains two columns of output fields -->
+        <lightning-modal-body>
+            <div class="slds-grid slds-gutters">
+                <!-- First column -->
+                <div class="slds-col  slds-size_1-of-2">
+                    <span>
+                        <!-- Display the title of the volunteer shift -->
+                        <lightning-formatted-text value="Volunteer Shift Name"></lightning-formatted-text><br>
+                        <a onclick={focusNewTab}>
+                            <lightning-formatted-text class="valueBold txtWordWrap"
+                                value={content.title}></lightning-formatted-text>
+                        </a>
+                        <br><br>
+                        <!-- Display the start date and time of the shift -->
+                        <lightning-formatted-text value="Start Date and Time"></lightning-formatted-text><br>
+                        <lightning-formatted-date-time class="valueBold txtWordWrap"
+                            value={content.start}></lightning-formatted-date-time><br><br>
+                        <!-- Display the duration of the shift -->
+                        <lightning-formatted-text value="Duration"></lightning-formatted-text><br>
+                        <lightning-formatted-number class="valueBold txtWordWrap" value={content.duration}
+                            minimum-fraction-digits="2"></lightning-formatted-number><br><br>
+                        <!-- Display the description of the shift -->
+                        <lightning-formatted-text value="Description"></lightning-formatted-text><br>
+                        <lightning-formatted-text class="valueBold txtWordWrap"
+                            value={content.description}></lightning-formatted-text><br>
+                    </span>
+                </div>
+                <!-- Second column -->
+                <div class="slds-col  slds-size_1-of-2">
+                    <span>
+                        <!-- Display the Volunteer Program Name of the shift -->
+                        <lightning-formatted-text value="Volunteer Program"></lightning-formatted-text><br>
+                        <lightning-formatted-text class="valueBold txtWordWrap"
+                            value={content.volunteerProgram}></lightning-formatted-text><br><br>
+                        <!-- Display the Total Volunteers of the shift -->
+                        <lightning-formatted-text value="Total Volunteers"></lightning-formatted-text><br>
+                        <lightning-formatted-number class="valueBold txtWordWrap"
+                            value={content.totalVolunteers}></lightning-formatted-number><br><br>
+                        <!-- Display the Number of Volunteers Still Needed of the shift -->
+                        <lightning-formatted-text
+                            value="Number of Volunteers Still Needed"></lightning-formatted-text><br>
+                        <lightning-formatted-number class="valueBold txtWordWrap"
+                            value={content.numberOfVolunteersStillNeeded}></lightning-formatted-number><br><br>
+                        <!-- Display the Recurrence Schedule of the shift -->
+                        <lightning-formatted-text value="Recurrence Schedule"></lightning-formatted-text><br>
+                        <lightning-formatted-text class="valueBold txtWordWrap"
+                            value={content.recurrenceShedule}></lightning-formatted-text><br>
+                    </span>
+                </div>
+            </div>
+        </lightning-modal-body>
+        <!-- Modal Footer -->
+        <lightning-modal-footer>
+            <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

@@ -1,0 +1,123 @@
+<template>
+    <div class="slds-card slds-p-around_small">
+        <lightning-tabset>
+            <!-- Bulk Upload Tab -->
+            <lightning-tab label="Bulk Upload">
+                <section class="slds-m-bottom_large slds-p-around_large"
+                         style="background-color: rgb(241, 241, 241); border-radius: 0.5rem;">
+                    <div class="slds-m-top_small slds-text-align_right">
+                        <!-- Buttons for clearing fields and saving volunteers -->
+                        <lightning-button label="Clear" title="Non-primary action" onclick={clearFields}></lightning-button>
+                        <lightning-button class="slds-m-horizontal_x-small" variant="brand" label="Save" title="Primary action" onclick={saveVolunteers}></lightning-button>
+                    </div>
+        
+                    <!-- Grid for campaign, program, shift selection -->
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3">
+                            <!-- Campaign combobox -->
+                            <lightning-combobox name="Campaign" label="Select Campaign" value={campaignValue} options={campaignOptions} onchange={handleCampaignChange}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <!-- Program combobox -->
+                            <lightning-combobox name="Program" label="Volunteer Program" value={programValue} options={programOptions} onchange={handleProgramChange}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <!-- Shift combobox -->
+                            <lightning-combobox name="Shift" label="Volunteer Shift" value={shiftValue} options={shiftOptions} onchange={handleShiftChange}></lightning-combobox>
+                        </div>
+                    </div>
+        
+                    <!-- Grid for date range selection -->
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="slds-m-top_medium">
+                                <!-- Start date input -->
+                                <lightning-input type="date" name="input1" label="Show Shifts & Hours From" value={shift_from} onchange={handleStartDateChange}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="slds-m-top_medium">
+                                <!-- End date input -->
+                                <lightning-input type="date" name="input2" label="To" value={shift_to} onchange={handleEndDateChange}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <span> </span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Table for displaying volunteer data -->
+                <section class="slds-m-bottom_large slds-p-around_large"
+                         style="background-color: rgb(241, 241, 241); border-radius: 0.5rem;">
+                    <div class="slds-grid">
+                        <div class="slds-col">
+                            <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+                                <thead>
+                                    <!-- Table headers -->
+                                    <tr>
+                                        <th scope="col" height="22">VOLUNTEER</th>
+                                        <th scope="col" height="22">STATUS</th>
+                                        <th scope="col" height="22">WORKING HOURS</th>
+                                        <th scope="col" height="22">NUMBER OF VOLUNTEERS</th>
+                                        <th scope="col" height="22" style="width: 3rem"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Looping through each volunteer to display data -->
+                                    <template for:each={listOfVolunteers} for:item="volunteer">
+                                        <tr key={volunteer.index}>
+                                            <!-- Contact combobox -->
+                                            <td>
+                                                <c-vm-custom-combo-box id={volunteer.index} selected-search-result={contactValue} onselectcontact={handleSelectContact}></c-vm-custom-combo-box>
+                                            </td>
+                                            <!-- Status combobox -->
+                                            <td>
+                                                <div class="slds-form-element">
+                                                    <lightning-combobox data-id={volunteer.index} data-name="status" value={volunteer.status} options={statusOptions} onchange={handleStatusChange}></lightning-combobox>
+                                                </div>
+                                            </td>
+                                            <!-- Hours worked input -->
+                                            <td>
+                                                <div>
+                                                    <lightning-input type="number" data-name="hours" data-id={volunteer.index} value={volunteer.hours} onchange={handleNumOfHoursChange}></lightning-input>
+                                                </div>
+                                            </td>
+                                            <!-- Number of volunteers input -->
+                                            <td>
+                                                <div>
+                                                    <lightning-input type="number" data-name="numberOfVolunteers" data-id={volunteer.index} value={volunteer.numberOfVolunteers} onchange={handleNumOfVolunteersChange}></lightning-input>
+                                                </div>
+                                            </td>
+                                            <!-- Delete row button -->
+                                            <td>
+                                                <div class="slds-m-top_medium">
+                                                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove" onclick={removeRow} name={volunteer.index}></lightning-button-icon>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Buttons for deleting all rows and adding a new row -->
+                    <div class="slds-p-left_small slds-p-vertical_small">
+                        <lightning-button class="slds-p-right_small" variant="brand" label="delete all rows" title="delete all rows" icon-name="utility:recycle_bin_full" onclick={removeAllRows}></lightning-button>
+                        <lightning-button variant="neutral" label="add row" title="add row" icon-name="utility:add" onclick={addNewRow}></lightning-button>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="slds-docked-form-footer"></div>
+                </section>
+            </lightning-tab>
+
+            <!-- CSV Upload Tab -->
+            <lightning-tab label="CSV Upload" title="CSV Upload">
+                <!-- Component for CSV file upload -->
+                <c-vm-c-s-v-file-upload-component></c-vm-c-s-v-file-upload-component>
+            </lightning-tab>
+        </lightning-tabset>
+    </div>
+</template>

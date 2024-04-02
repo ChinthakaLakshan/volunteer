@@ -1,0 +1,61 @@
+<!--
+ * @ClassName: VM_InterviewFilterController
+ * @Description:<UC-0020> Copied from UC-0014 | Filter past interview details by status and the date range (LWC)
+ * @Developer: Waruna Wickramasinghe <UC-0020>
+ * @Date: 27/02/2024
+ *********************************************************************************************************************************
+  *Version                         Date                          Developer                                      Description
+   v01                             27/02/2024                    Waruna Wickramasinghe                          Initial Version         
+ *********************************************************************************************************************************
+-->
+<template>
+    <lightning-card title="Interview Filter">
+        <div class="filters">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input data-id="sDate" placeholder="Select the Start Date" type="date"
+                        label="Start Date"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input data-id="eDate" placeholder="Select the End Date" type="date"
+                        label="End Date"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <div class="slds-col">
+                        <lightning-combobox data-id="skill" name="Skills" label="Select Skills" value={comboboxValue}
+                            width="200px" placeholder="Select an Skill" options={skillOptions}
+                            onchange={handleSkillSelection}></lightning-combobox>
+                    </div>
+                    <div class="slds-p-around_medium">
+                        <template for:each={allSkills} for:item="skill">
+                            <lightning-pill key={skill} label={skill} name={skill} required
+                                onremove={handleRemoveSkills}></lightning-pill>
+                        </template>
+                    </div>
+                </div>
+            </div><br>
+            <div>
+                <lightning-button style="float: right; margin: 0 10px;" variant="brand" label="Filter"
+                    title="Primary action" onclick={handleFilterInterviews}
+                    class="slds-var-m-right_small"></lightning-button>
+                <lightning-button style="float: right;" label="Clear" title="Destructive action"
+                    onclick={handleResetFields} class="slds-m-left_x-small"></lightning-button>
+            </div><br><br><br>
+            <template if:true={selectedSkills.length}>
+                <div>
+                    <div>
+                        <div>
+                            <lightning-datatable show-row-number-column hide-checkbox-column key-field="id"
+                                data={selectedSkills} columns={columns}>
+                            </lightning-datatable>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="parent-container">
+            <lightning-formatted-text class="slds-form-element__label" value="No Records Found" data-id="infMsg" style="visibility: hidden;">
+            </lightning-formatted-text>
+        </div>
+    </lightning-card>
+</template>

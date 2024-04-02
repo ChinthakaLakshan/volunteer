@@ -1,0 +1,58 @@
+<template>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: stretch;">
+    <div style="flex-basis: 100%; position: relative; height: 200px;">
+      <div style="flex-basis: calc(50% - 10px); margin-bottom: 20px; position: relative;">
+        <h1 style="color: rgba(26, 60, 126, 0.8); font-size: 24px; margin-bottom: 20px;">{programmeName}</h1>
+        <p style="margin-bottom: 10px;">➤ {location}</p>
+        <p style="margin-bottom: 10px;">📅 {currentDate}</p>
+        <p style="margin-bottom: 10px;">👷🏼 {volunteerRole}</p>
+        <div style="display: flex; flex-wrap: wrap;">
+          <template for:each={skills} for:item="skill">
+            <span key={skill} style="background-color: #c4def1; border-radius: 20px; padding: 4px 8px; margin: 4px; font-size: 14px; border: 1px solid #c4def1;">{skill}</span>
+          </template>
+        </div>
+      </div>
+
+      <div style="flex-basis: calc(50% - 10px); position: absolute; top: 0; right: 0; bottom: 0; left: 40%;">
+        <img src={imageUrl} alt="Image" style="max-width: 100%; height: 100%;">
+      </div>
+    </div>
+  </div>
+
+  <div style=" padding: 20px;">
+    <h1 style="color: rgb(0, 0, 0); font-size: 20px; margin-bottom: 10px;">Description</h1>
+    <p style="color: rgb(0, 0, 0); text-align: center;">{description}</p>
+  <p>
+    Ocean Clean Volunteer Programme
+
+Join us in our mission to preserve and protect the world's oceans through our Ocean Clean Volunteer Programme. As a volunteer, you will have the opportunity to make a meaningful impact on marine ecosystems while engaging in rewarding and fulfilling work.
+
+Programme Details:
+
+Location:
+Our volunteer programme operates in coastal regions and beaches worldwide. Whether you're near the serene shores of the Mediterranean or the stunning coastlines of Australia, there's always an opportunity to contribute to ocean conservation.
+
+Duration:
+The duration of our programme is flexible, ranging from one-time events to ongoing projects. Whether you're available for a few hours on a weekend or wish to dedicate more time over several months, there's a volunteering opportunity suited to your schedule.
+
+Activities:
+Volunteers engage in various activities aimed at protecting marine environments. From organizing beach cleanups to conducting educational outreach sessions, each activity is designed to address specific environmental challenges and promote sustainable practices.
+
+Benefits:
+By participating in our Ocean Clean Volunteer Programme, you'll contribute to creating a cleaner and healthier environment for marine species and coastal communities. Additionally, you'll have the opportunity to expand your knowledge of marine conservation and environmental sustainability, build meaningful connections with like-minded individuals, and develop valuable skills in teamwork, leadership, and environmental stewardship.
+
+How to Get Involved:
+Joining our Ocean Clean Volunteer Programme is easy and rewarding. Simply sign up for upcoming events or projects through our website or contact us directly to learn more about volunteer opportunities in your area. No prior experience is required – all you need is enthusiasm and a passion for protecting our oceans.
+
+Make a difference today by becoming a part of our Ocean Clean Volunteer Programme. Together, we can create a cleaner, healthier future for our planet's oceans and marine life. Join us in making a positive impact on the environment and inspiring others to do the same!
+  </p>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <button class="slds-button slds-button_brand" onclick={signup} title="Sign up" style="width: 200px;">Register</button>
+  </div>
+</template>
+
+
+
+

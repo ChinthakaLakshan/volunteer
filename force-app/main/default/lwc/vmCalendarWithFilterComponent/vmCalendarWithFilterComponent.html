@@ -1,0 +1,80 @@
+<!--
+ * @ClassName: VM_VolunteersShiftCalendar
+ * @Description:<UC-006> PC Task 1 - Program (Jobs) calendar | Calendar Component Design Color coding shifts based on the program
+                <UC-007> PC Task 2 - Program (Jobs) calendar | Filter Program Data by Campaign and Program
+ * @Developer: Waruna Wickramasinghe <UC-006>, Janaka Bandara <UC-007>
+ * @Date: 02/02/2024
+ *********************************************************************************************************************************
+  *Version                         Date                          Developer                                      Description
+  v01                             02/02/2024                     Waruna Wickramasinghe, Janaka Bandara          Initial Version         
+ *********************************************************************************************************************************
+-->
+<template>
+    <template if:true={isLoad}>
+        <article class="slds-card">
+            <section class="slds-m-around_large" style="border:none; border-radius: 0.5rem;  box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2);">
+            <div class="slds-card__header slds-grid"
+                style="border-bottom:solid 0.1px rgb(185, 185, 185); padding-bottom:15px;">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-event" title="calender">
+                            <lightning-icon icon-name="standard:event" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Calender</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="#" class="slds-card__header-link slds-truncate" title="Calender">
+                                <span>Volunteers Shift Calender</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="slds-form-element" style="background:#ffffff; padding: 10px 25px 10px 25px;">
+                    <div class="slds-form-element__control">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <!-- Search input field -->
+                                <lightning-input label="Volunteer Campaign" type="search" onfocus={showPicklistOptions}
+                                    onchange={handleCampingChange} value={selectedCampingName}
+                                    placeholder="Type to search volunteer campaigns">
+                                </lightning-input>
+                                <!-- Dropdown menu for search results -->
+                                <div if:true={showOptions}
+                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <!-- Iterate over search results -->
+                                        <template for:each={campingOptions} for:item="option">
+                                            <li key={option.value} data-value={option.value} role="presentation"
+                                                onclick={handleOptionClick} class="slds-listbox__item">
+                                                <!-- Display each search result as a list item -->
+                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small "
+                                                    role="option">
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-truncate"
+                                                            title={option.label}>{option.label}</span>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <!-- picklist to select the job related to selected camping -->
+                                <lightning-combobox label="Volunteer Program" value={selectedJob} options={jobOptions}
+                                    onchange={handleJobChange} placeholder="Select volunteer program">
+                                </lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Calender from jfsCalender.html -->
+                <c-vm-calendar-component events={events} oneventclicked={handleEvent}></c-vm-calendar-component>
+            </div>
+            </section>
+        </article>
+    </template>
+</template>

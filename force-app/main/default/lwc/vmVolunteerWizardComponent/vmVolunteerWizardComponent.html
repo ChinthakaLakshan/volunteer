@@ -1,0 +1,174 @@
+<template>
+    <lightning-card>
+        <div class="slds-text-heading_small  slds-p-left_large"><b>Volunteer Wizard</b></div>
+        <div class="slds-text-body_large slds-p-left_large ">The Volunteers Wizard creates a new Volunteer Campaign, and allows you to either create all the Volunteer Programs related to Campaigns as recurring or non-recurring</div>
+        <div class="slds-p-around_large">
+            <section class="slds-m-bottom_large slds-p-around_large"
+                style="background-color: rgb(241, 241, 241); border-radius: 0.5rem;">
+                <div class="slds-text-heading_small"><b>Campaign Information </b></div>
+                <div class="slds-text-body_regular">Create a Campaign with required number of Volunteer Programs</div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" label="Name" value={name} data-field="campaignName"
+                                onchange={handleNameChange}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" label="Description" value={description}
+                                data-field="campaignDescription" onchange={handleDescriptionChange}>
+                                <lightning-helptext slot="help" content="Enter the description of the campaign"></lightning-helptext>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="date" label="Start Date" value={startDate} data-field="startDate"
+                                onchange={handleStartDateChange}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="date" label="End Date" value={endDate} data-field="endDate"
+                                onchange={handleEndDateChange}></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="number" label="Number of Programs" value={numberOfPrograms}
+                                data-field="numberOfPrograms" onchange={handleNumberOfProgramsChange}></lightning-input>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Program Information Section -->
+            <template if:true={showProgramInformation}>
+                <section class="slds-m-bottom_large slds-p-around_large"
+                    style="background-color: rgb(241, 241, 241); border-radius: 0.5rem;">
+                    <div class="slds-text-heading_small"><b>Program Information</b></div>
+                    <div class="slds-text-body_regular">Create the Programs that recurring or non-recurring</div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" label="Name" value={programName} data-field="programName"
+                                    onchange={handleProgramNameChange}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" label="Description" value={programDescription}
+                                    data-field="programDescription"
+                                    onchange={handleProgramDescriptionChange}></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="datetime" label="Start Date & Time" value={startDateTime}
+                                    data-field="startDateTime"
+                                    onchange={handleStartDateTimeChange}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="date" label="Program End Date" value={programEndDate}
+                                    data-field="programEndDate" onchange={handleProgramEndDateChange}></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" label="Skills" value={programSkills}
+                                    data-field="programSkills" onchange={handleSkillsChange}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" placeholder="Enter Duration in Hours" label="Duration" value={programDuration}
+                                    data-field="programDuration"
+                                    onchange={handlepProgramDurationChange}></lightning-input>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="checkbox" label="Recurring" value={recurring} checked={recurring}                                    data-field="recurring" onchange={handleRecurringChange}></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={showRecurrenceSchedule}>
+                        <div class="slds-p-around_large">
+                            <div class="slds-text-heading_small"><b><i>Recurrence Schedule</i></b></div>
+                            <div class="slds-text-body_regular">Create the Recurrence Schedule with required fields</div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-p-around_medium">
+                                    <lightning-combobox name="Days of Week" label="Days of Week" value={value}
+                                        placeholder="Select days of week" options={daysOfWeekOptions}
+                                        onchange={handleDaysofWeek}></lightning-combobox>
+                                </div>
+                                <div class="slds-p-around_medium">
+                                    <template for:each={allDaysofWeek} for:item="day">
+                                        <lightning-pill key={day} label={day} name={day}
+                                            onremove={handleRemove}></lightning-pill>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-p-around_medium">
+                                    <lightning-combobox name="Weekly Occurrence" label="Weekly Occurrence"
+                                        value={weeklyOccurrence} placeholder="Select Weekly Occurrence"
+                                        options={weeklyOccurrenceOptions}
+                                        onchange={handleWeeklyOccurrence}></lightning-combobox>
+                                </div>
+                                <div class="slds-p-around_medium">
+                                    <template for:each={allOccurrences} for:item="occurrence">
+                                        <lightning-pill key={occurrence} label={occurrence} name={occurrence}
+                                            onremove={handleRemoveOccurrences}></lightning-pill>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </template>
+                    <div class="slds-p-around_medium lgc-bg slds-text-align_right" if:true={showSaveButton}>
+                        <lightning-button label="Save Program" variant="brand-outline" onclick={handleSave}></lightning-button>
+                    </div>
+                </section>
+            </template>
+
+            <!-- End Program Information Section -->
+
+            <!-- Program Details Section -->
+            <template if:true={showProgramDetails}>
+                <section class="slds-m-bottom_large slds-p-around_large"
+                    style="background-color: rgb(241, 241, 241); border-radius: 0.5rem;">
+                    <lightning-card>
+                        <div class="slds-text-heading_small"><b>Program Details</b></div>
+                        <div class="slds-p-around_large">
+                            <lightning-datatable key-field="id" data={programData} columns={columns}
+                                hide-checkbox-column="true">
+                            </lightning-datatable>
+                        </div>
+                    </lightning-card>
+                </section>
+            </template>
+            <!-- End Program Details Section -->
+            <div class="slds-text-align_center slds-m-top_large">
+                <button class="slds-button slds-button_brand" type="button" onclick={handleSubmit}
+                    style="padding: 0px 100px;">Submit</button>
+            </div>
+        </div>
+    </lightning-card>
+</template>
