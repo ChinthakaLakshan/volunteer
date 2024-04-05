@@ -1,0 +1,18 @@
+<template>
+        <lightning-card  >
+            
+           <!-- <lightning-button label="Recent Programs" variant="brand" ></lightning-button> -->
+        <div class="slds-var-m-around_none" >
+            <h2 class="slds-p-around_medium slds-text-heading_medium slds-m-top_small custom-heading">Recent Programs</h2>
+            <lightning-datatable
+            class="slds-table slds-table_cell-buffer slds-table_header-hidden"
+                key-field="Id"
+                hide-table-header
+                data={Program.data}
+                columns={columns}
+                onrowaction={navigateToRecordViewPage}
+                hide-checkbox-column
+            ></lightning-datatable>
+        </div>
+    </lightning-card>
+</template>

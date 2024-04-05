@@ -1,0 +1,29 @@
+<template>
+    <!---   Iterate -->
+    <div class="slds-size_12-of-12 slds-var-p-horizontal_small">
+            <div class="slds-grid slds-wrap">
+                <template for:each={displayedTiles} for:item="tile">
+                <div class = "slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3" key={tile.Id} >
+                    <div class="slds-align_absolute-center" style="padding-left: 7px;">
+                    <span>
+                    <c-vm-program-tile-component
+                        id={tile.Id}
+                        title={tile.programName}
+                        location={tile.locationCity}
+                        end-date={tile.endDate}
+                        start-date ={tile.startDate}
+                        volunteer-type={tile.volunteerType}
+                        skills={tile.requiredSkills}>
+                    </c-vm-program-tile-component></span>
+                    </div>
+                </div>
+            </template>
+        </div>
+         <!--Pagination-->
+        <div class="slds-size_1-of-1 slds-var-p-top_medium slds-wrap" style="height: 80px;">
+            <template if:true={totalRecords}>
+                <c-vm-pagination-web-portal totalrecords={totalRecords} page-size={pageSize} display-rec-count={recCountOfDisplayList} onpagination={handlePagination}></c-vm-pagination-web-portal>
+            </template>
+        </div> 
+    </div>
+ </template>

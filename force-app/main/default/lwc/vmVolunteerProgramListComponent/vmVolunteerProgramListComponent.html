@@ -1,0 +1,64 @@
+<!--
+ * @Description: <UC-017> - Create a component to display Volunteer programs with available shifts in Experience Cloud site
+ * @ComponentName: vmVolunteerProgramListComponent
+ * @Developer: Waruna Wickramasinghe
+ * @Date: 13/03/2024
+ ***********************************************************************************************************************************************************
+  Version                         Date                           Developer                                      Description
+  v01                             13/03/2024                     Waruna Wickramasinghe                          Initial Version
+ ***********************************************************************************************************************************************************
+-->
+
+<template>
+    <!-- Start of the card -->
+    <article class="slds-card">
+        <!-- Card header -->
+        <div class="slds-card__header slds-grid"
+            style="border-bottom:solid 0.1px rgb(185, 185, 185); padding-bottom:15px;">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <!-- Card icon -->
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-event" title="calender">
+                        <lightning-icon icon-name="standard:event" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Sign up for volunteer jobs</span>
+                    </span>
+                </div>
+                <!-- Card title -->
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Recent Volunteer Jobs</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <!-- Card body -->
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Loop over the volunteerProgramList array -->
+            <template for:each={volunteerProgramList} for:item="program">
+                <div class="slds-var-p-around_medium card" key={program.volunteerProgramId}>
+                    <!-- Display program details -->
+                    <p class="valueBold txtWordWrap">
+                        <b>
+                            <lightning-formatted-text value={program.campaignName}></lightning-formatted-text>
+                            <lightning-formatted-text value=" - "></lightning-formatted-text>
+                            <lightning-formatted-text value={program.volunteerProgramName}></lightning-formatted-text>
+                        </b>
+                        <br>
+                        <lightning-formatted-text
+                            value={program.volunteerProgramDescription}></lightning-formatted-text>
+                    </p>
+                    <!-- Loop over the shifts array in each program -->
+                    <template for:each={program.shifts} for:item="shift">
+                        <div class="shiftDataRow" key={shift.volunteerShiftId}>
+                            <!-- Display shift name and sign up button -->
+                            <lightning-formatted-text value={shift.volunteerShiftName}></lightning-formatted-text>
+                            <lightning-button variant="brand" label="Sign Up" title="Sign Up"
+                                class="slds-var-m-left_x-small"></lightning-button>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </article>
+    <!-- End of the card -->
+</template>

@@ -1,0 +1,18 @@
+.card{
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2);
+    padding: 10px 15px 10px 15px;
+    margin: 10px 25px 10px 25px;
+}
+
+.valueBold{
+        font-weight: 550;
+}
+
+.txtWordWrap{
+        word-wrap: break-word;
+}
+
+.shiftDataRow{
+    margin: 5px;
+}

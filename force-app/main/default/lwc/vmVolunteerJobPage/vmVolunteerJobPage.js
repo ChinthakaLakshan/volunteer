@@ -1,6 +1,8 @@
 import { LightningElement, track, api, wire} from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import myResource from '@salesforce/resourceUrl/program';
+import RegisterForShiftModal from 'c/vmRegisterForShiftPortal';
+import getVolunteeerProgrammeDetails from  '@salesforce/apex/VM_ProgrammePageController.getVolunteeerProgrammeDetails';
 
 export default class VmVolunteerJobPage extends LightningElement {
     @track programmeName = 'Test Programme 1';
@@ -35,6 +37,34 @@ export default class VmVolunteerJobPage extends LightningElement {
     
     Make a difference today by becoming a part of our Ocean Clean Volunteer Programme. Together, we can create a cleaner, healthier future for our planet's oceans and marine life. Join us in making a positive impact on the environment and inspiring others to do the same!
         `;
+        @track isModalOpen;
+        recordId;
 
+
+        @wire(CurrentPageReference)
+        currentPageReferenceHandler(currentPageReference) {
+            if (currentPageReference && currentPageReference.state) {
+                this.recordId = currentPageReference.state.recordId;
+            }
+          }
+
+          @wire(getVolunteeerProgrammeDetails ,{programmeId:'recordId'} )
+          wiredProgram ({error , data}){
+            if(data){
+              this.programmeName=data.Name;
+              this.location=data.Location_City__c;
+              this.currentDate=data.Start_Date_Time__c;
+
+            }
+          }
+
+      async handleRegisterEvent(event) {
+        //Open Modal
+        const eventModal = await RegisterForShiftModal.open({
+            size: 'small', //Modal Size
+            description: 'Display Event Details',
+            //content: task //Modal Content
+        });
+    }
     
 }

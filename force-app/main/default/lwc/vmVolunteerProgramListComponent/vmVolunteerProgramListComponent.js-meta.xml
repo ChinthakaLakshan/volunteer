@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <isExposed>true</isExposed>
+     <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        
+        <targetConfig targets="lightningCommunity__Default" >
+            <!-- Property for the number of days from now. It's an integer with a default value of 5, it's required, and it can be between 1 and 100. -->
+            <property label="No of days from now" name="No_of_Days_From_Now" type="Integer" default="5" required="true" max="100" min="1"/>
+            <!-- Property for the number of programs. It's an integer with a default value of 5, it's required, and it can be between 1 and 100. -->
+            <property label="No of programs to display" name="No_of_Programs" type="Integer" default="5" required="true" max="100" min="1"/>
+        </targetConfig>
+        
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,55 @@
+<!--
+ /**
+ * @ClassName: -
+ * @Description: UC-0072 - (Home page) - Create a tile for filtered program
+ * @Developer: Pulsara Sandeepa
+ * @Date: 03/04/2024
+ /*********************************************************************************************************************************************************************
+  *Version                         Date                          Developer                                                             Description
+   v01                             03/04/2024                    Pulsara Sandeepa                                                      Initial Version 			      
+ ***********************************************************************************************************************************************************************
+ */
+ -->
+<template>
+    <lightning-card>
+        <div class="border-style">
+            <div class="slds-text-align_center">
+                <img src={imageSrc} alt="Image" class="card-image" />
+                <h3 class="slds-text-heading_small slds-m-top_small custom-heading">{title}</h3>
+            </div>
+            <div class="slds-grid slds-wrap card-style">
+                <div class="slds-col slds-size_2-of-12 slds-m-top_small">
+                    <lightning-icon icon-name="utility:checkin" alternative-text="Location" title="Location" style="zoom:65%"></lightning-icon>
+                </div>
+                <div class="slds-col slds-size_10-of-12 slds-m-top_small">
+                    <p class="slds-text-body_regular">{location}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-m-top_small">
+                    <lightning-icon icon-name="utility:date_time" alternative-text="Duration" title="Duration" style="zoom:65%"></lightning-icon>
+                </div>
+                <div class="slds-col slds-size_10-of-12 slds-m-top_small">
+                    <p class="slds-text-body_regular">{duration}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-m-top_small">
+                    <lightning-icon icon-name="utility:groups" alternative-text="volunteer Type" title="Volunteer Type" style="zoom:65%"></lightning-icon>
+                </div>
+                <div class="slds-col slds-size_10-of-12 slds-m-top_small">
+                    <p class="slds-text-body_regular">{volunteerType}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-m-top_small slds-m-right_small">
+                    <lightning-icon icon-name="utility:sparkles" alternative-text="Required Skills" title="Required Skills" style="zoom:65%"></lightning-icon>
+                </div>
+                <template for:each={skills} for:item="skill">
+                    <div key={skill}>
+                        <span class="slds-pill skill-style slds-col slds-m-top_small">{skill}</span>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-text-align_center slds-m-top_small">
+                <div class="grey-background">
+                    <button class="slds-button slds-button_brand custom-button" onclick={handleMoreInfo} >More Info</button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
