@@ -1,33 +1,78 @@
-<template>
-  <div class="slds-grid slds-wrap">
-    <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-around_medium" style="height: fit-content;">
-      <div class="custom-program-name slds-text-heading_large slds-m-bottom_medium" style="color: rgba(26, 60, 126, 0.8); font-size: 24px;">{programmeName}</div>
-      <p style="margin-bottom: 10px;">➤ {location}</p>
-      <p style="margin-bottom: 10px;">📅 {currentDate}</p>
-      <p style="margin-bottom: 10px;">👷🏼 {volunteerRole}</p>
-      <div class="slds-m-top_small">
-        <template for:each={skills} for:item="skill">
-          <span key={skill} class="slds-box slds-m-right_xx-small slds-m-bottom_xx-small"  style="display: inline-block; background-color: #c4def1; border-radius: 20px; padding: 4px 8px; margin: 4px; font-size: 14px; border: 1px solid #c4def1;">{skill}</span>
-        </template>
-      </div>
+<!--
+ * @ClassName: VmVolunteerJobPage
+//  * @Description:<UC-0077>  Create program web page - for both recurring and non recurring
+//    @Backend class :VM_ProgrammePageController          
+//  * @Developer:  Chinthaka Lakshan 
+//  * @Date: 02/02/2024
+//  *********************************************************************************************************************************
+//   *Version                         Date                          Developer                                      Description
+//   v01                             04/08/2024                     Chinthaka Lakshan                              Initial Version         
+//  *********************************************************************************************************************************
+
+  -->
+  <template>
+    <div class="container">
+      <lightning-layout>
+        <lightning-layout-item size="7" class="custom-program-name">
+          <h1 class="slds-text-heading_large slds-m-bottom_medium" style="color: rgba(26, 60, 126, 0.8); font-size: 30px;">{programmeName}</h1>
+          <div class="program-details">
+            <template if:true={location}>
+              <div class="slds-grid slds-align-items_center">
+                <lightning-icon icon-name="utility:location" alternative-text="Location" title="Location" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <p class="program-details"  style="margin-bottom: 10px; font-size: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">{location}</p>
+              </div>
+            </template>
+            <template if:true={currentDate}>
+              <div class="slds-grid slds-align-items_center">
+                <lightning-icon icon-name="utility:date_time" alternative-text="Date" title="Date" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <p class="program-details"  style="margin-bottom: 10px; font-size: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">{currentDate}</p>
+              </div>
+            </template>
+            <template if:true={volunteerRole}>
+              <div class="slds-grid slds-align-items_center">
+                <lightning-icon icon-name="utility:groups" alternative-text="Volunteer Role" title="Volunteer Role" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <p class="program-details"  style="margin-bottom: 10px; font-size: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">{volunteerRole}</p>
+              </div>
+            </template>
+            <div class="skill-container" style="max-width: 500px; margin-top: 1rem;"> 
+              <template for:each={skills} for:item="skill">
+                <span key={skill} class="skill-block" style="display: inline-block; background-color: #c4def1; border-radius: 20px; padding: 8px; margin: 4px; font-size: 14px; border: 1px solid #c4def1;">{skill}</span>
+              </template>
+            </div>
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="4" class="image-wrapper" style="overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+          <img src={imageUrl} alt="Image" class="image" style="width: 100%; height: auto; object-fit: cover; border: 2px solid #ccc; border-radius: 10px;" />
+        </lightning-layout-item>
+      </lightning-layout>
+      <lightning-layout>
+        <lightning-layout-item size="12">
+          <div style="display: flex; flex-direction: column;">
+            <h1 class="slds-text-heading_medium slds-m-bottom_medium">Description</h1>
+            <div class="description-container">
+              <template if:true={description}>
+                <lightning-formatted-rich-text value={description}></lightning-formatted-rich-text>
+              </template>
+            </div>
+          </div>
+        </lightning-layout-item>
+      </lightning-layout>
+      <lightning-layout>
+        <lightning-layout-item size="12" class="slds-text-align_center">
+          <button class="slds-button slds-button_brand" onclick={handleRegisterEvent} title="Sign up" style="width: 200px;">Register</button>
+        </lightning-layout-item>
+      </lightning-layout>
     </div>
+  </template>
+  
 
-    <div class="slds-size_1-of-1 slds-large-size_1-of-2 slds-p-relative" style="height: fit-content;">
-      <div style="max-width: 100%;">
-        <img src={imageUrl} alt="Image" style="width: 100%; max-height: 200px; object-fit: contain; margin-left: -300px;">
-      </div>
-    </div>
-  </div>
 
-  <div class="slds-size_1-of-1 slds-large-size_1-of-1 slds-p-around_medium">
-    <h1 class="slds-text-heading_medium slds-m-bottom_medium">Description</h1>
-    <p class="slds-text-body_regular slds-text-align_center">{description}</p>
-  </div>
 
-  <div style="text-align: center; margin-top: 20px;">
-    <button class="slds-button slds-button_brand" onclick={handleRegisterEvent} title="Sign up" style="width: 200px;">Register</button>
-  </div>
+
   
   
   
-</template>
+  
+  
+  
+  
