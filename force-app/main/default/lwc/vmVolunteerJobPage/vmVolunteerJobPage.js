@@ -19,7 +19,6 @@ export default class VmVolunteerJobPage extends LightningElement {
 @api description ;
 @api recordId ;
 @api imageUrl;
-
 connectedCallback() {
 // Get the record Id from the URL
 const url = new URL(window.location.href);
@@ -29,8 +28,7 @@ this.fetchProgrammeDetails();
 fetchProgrammeDetails() {
 getVolunteeerProgrammeDetails({ programmeId: this.recordId })
     .then(result => {
-        if (result) {
-           
+        if (result) { 
             if (Array.isArray(result) && result.length > 0) {
                 // Data is returned successfully
                 const programmeDetails = result[0];
@@ -61,7 +59,4 @@ getVolunteeerProgrammeDetails({ programmeId: this.recordId })
         console.error('Error fetching data:', error);
     });
 }
-
-
-
 }
